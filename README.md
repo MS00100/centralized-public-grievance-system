@@ -1,11 +1,11 @@
 # Centralized Public Grievance System 🚀
 
-**Centralized Public Grievance System** is a high-performance, digitized campus complaint management system designed to bridge the gap between students, staff, and administration. Developed for the **Vibex1.0 Hackathon**, it transforms manual reporting into an automated, transparent, and accountable workflow.
+**Centralized Public Grievance System** is a high-performance, digitized campus complaint management system designed to bridge the gap between students, staff, and administration. Transforms manual reporting into an automated, transparent, and accountable workflow.
 
 ---
 
 ## 🏗️ Project Vision
-Traditional campus complaint systems are slow, opaque, and difficult to manage. **CampusFixx** digitizes this experience with real-time tracking, AI-powered categorization, and automated email routing, ensuring that every issue—from electrical faults to infrastructure needs—is handled with precision.
+Traditional campus complaint systems are slow, opaque, and difficult to manage. **Centralized Public Grievance System** digitizes this experience with real-time tracking, AI-powered categorization, and automated email routing, ensuring that every issue—from electrical faults to infrastructure needs—is handled with precision.
 
 ## ✨ Key Features
 
@@ -45,9 +45,3 @@ Traditional campus complaint systems are slow, opaque, and difficult to manage. 
 ### 🏢 Department In-charge (Example)
 - **User:** `electrical` | **Pass:** `admin123`
 - *Available for: Plumbing, Cleanliness, Internet, Furniture.*
-
-
-
-### 🏆 Hackathon Credits
-Developed  by **Harini.G** & **Hari Saran.M** (Team **HackNova**) for **Vibex1.0**.
-
