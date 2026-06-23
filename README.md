@@ -1,6 +1,6 @@
-# CampusFixx 🚀
+# Centralized Public Grievance System 🚀
 
-**CampusFixx** is a high-performance, digitized campus complaint management system designed to bridge the gap between students, staff, and administration. Developed for the **Vibex1.0 Hackathon**, it transforms manual reporting into an automated, transparent, and accountable workflow.
+**Centralized Public Grievance System** is a high-performance, digitized campus complaint management system designed to bridge the gap between students, staff, and administration. Developed for the **Vibex1.0 Hackathon**, it transforms manual reporting into an automated, transparent, and accountable workflow.
 
 ---
 
