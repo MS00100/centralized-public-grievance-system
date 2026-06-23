@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard | CampusFixx</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                    </svg>
+                    <span>CampusFixx</span>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="student_dashboard.html" class="active">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                    </svg>
+                    Lodge Complaint
+                </a>
+                <div style="margin-top: auto; border-top: 1px solid var(--glass-border); padding-top: 10px;">
+                    <a href="my_complaints.html">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
+                            </path>
+                        </svg>
+                        My Complaints
+                    </a>
+                    <a href="#" id="studentLogout" style="color: #EF4444;">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
+                            </path>
+                        </svg>
+                        Logout
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar">
+                <h2>Register Complaint</h2>
+                <div class="user-profile">
+                    <span id="headerUserName">Student</span>
+                    <div class="avatar" id="headerUserAvatar">S</div>
+                </div>
+            </header>
+
+            <div class="content-wrapper">
+                <div class="form-card">
+                    <p class="form-header">Complaint Details</p>
+                    <form id="complaintForm">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="name">Full Name</label>
+                                <input type="text" id="name" required readonly
+                                    style="opacity: 0.7; cursor: not-allowed;">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="regno">Register Number</label>
+                                <input type="text" id="regno" required readonly
+                                    style="opacity: 0.7; cursor: not-allowed;">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="department">Department</label>
+                                <select id="department" required>
+                                    <option value="" disabled selected>Select Department</option>
+                                    <option>CSE</option>
+                                    <option>IT</option>
+                                    <option>ECE</option>
+                                    <option>EEE</option>
+                                    <option>MECH</option>
+                                    <option>CIVIL</option>
+                                    <option>AGRI</option>
+                                    <option>FT</option>
+                                    <option>CHEM</option>
+                                    <option>PHARMA</option>
+                                    <option>AIML</option>
+                                    <option>AERO</option>
+                                    <option>BIOTECH</option>
+                                    <option>CYBER</option>
+                                    <option>BME</option>
+                                    <option>IOT</option>
+                                    <option>MECHATRONICS</option>
+                                    <option>ROBOTICS</option>
+                                    <option>AIDS</option>
+                                    <option>S&F</option>
+                                    <option>Other</option>
+                                </select>
+                                <input type="text" id="otherDepartment" placeholder="Specify Department"
+                                    style="display: none; margin-top: 5px;">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="block">Block</label>
+                                <select id="block" required>
+                                    <option value="" disabled selected>Select</option>
+                                    <option>Additional Block</option>
+                                    <option>Temple Tower</option>
+                                    <option>Main Block</option>
+                                    <option>PIF</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="floor">Floor</label>
+                                <select id="floor" required>
+                                    <option value="" disabled selected>Select</option>
+                                    <option>Ground</option>
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="roomNumber">Room No / specific Lab</label>
+                                <input type="text" id="roomNumber" placeholder="e.g. 201, Physics Lab" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="landmark">Landmark</label>
+                                <input type="text" id="landmark" placeholder="e.g. Near Lift, Opposite Staff Room"
+                                    required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="issueType">Issue Category</label>
+                                <select id="issueType" required>
+                                    <option value="" disabled selected>Select Category</option>
+                                    <option>Electrical (Lights/Fans)</option>
+                                    <option>Plumbing (Water/Leaks)</option>
+                                    <option>Cleanliness (Garbage/Dust)</option>
+                                    <option>Internet / WiFi</option>
+                                    <option>Furniture / Classroom</option>
+                                    <option>Other</option>
+                                </select>
+                                <input type="text" id="otherIssue" placeholder="Specify Issue"
+                                    style="display: none; margin-top: 5px;">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="priority">Priority Level</label>
+                                <select id="priority" required>
+                                    <option value="" disabled selected>Select Priority</option>
+                                    <option value="low">Low (Can wait)</option>
+                                    <option value="medium">Medium (Needs attention)</option>
+                                    <option value="high">High (Urgent)</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="description">Description</label>
+                                <textarea id="description" rows="4" placeholder="Describe the issue in detail..."
+                                    required></textarea>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="submit-btn">Submit Report</button>
+                    </form>
+                </div>
+
+                <div id="successMessage"
+                    style="display: none; text-align: center; animation: slideIn 0.5s ease-out; background: var(--glass-bg); padding: 40px; border-radius: 12px; margin-top: 20px;">
+                    <div style="font-size: 3rem; margin-bottom: 20px;">🎉</div>
+                    <h2 style="color: var(--success); margin-bottom: 10px;">Issue Reported!</h2>
+                    <p>Your Complaint ID:</p>
+                    <span id="displayComplaintId"
+                        style="display: block; font-size: 2rem; font-weight: 700; color: var(--primary); margin: 15px 0;">CMP-XXXX</span>
+
+                    <div
+                        style="display: flex; flex-direction: column; gap: 12px; align-items: center; margin-top: 20px;">
+                        <button onclick="location.reload()"
+                            style="width: auto; padding: 10px 30px; background: transparent; border: 1px solid var(--glass-border); color: var(--text-muted);">Submit
+                            Another</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="script.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Auth Guard & Auto-fill
+            const studentName = localStorage.getItem("campusFixx_studentName");
+            const studentReg = localStorage.getItem("campusFixx_studentReg");
+            const studentDept = localStorage.getItem("campusFixx_studentDept");
+
+            if (!studentName || !studentReg) {
+                window.location.href = "index.html";
+                return;
+            }
+
+            document.getElementById("name").value = studentName;
+            document.getElementById("regno").value = studentReg;
+            if (studentDept) {
+                document.getElementById("department").value = studentDept;
+            }
+
+            document.getElementById("headerUserName").innerText = studentName;
+            document.getElementById("headerUserAvatar").innerText = studentName.charAt(0).toUpperCase();
+
+            // Logout
+            document.getElementById("studentLogout").addEventListener("click", () => {
+                localStorage.clear();
+                window.location.href = "index.html";
+            });
+
+            // Toggles
+            const deptSelect = document.getElementById("department");
+            const otherDeptInput = document.getElementById("otherDepartment");
+            const issueSelect = document.getElementById("issueType");
+            const otherIssueInput = document.getElementById("otherIssue");
+
+            function toggleField(select, input) {
+                if (select.value === "Other") {
+                    input.style.display = "block";
+                    input.required = true;
+                } else {
+                    input.style.display = "none";
+                    input.required = false;
+                }
+            }
+
+            deptSelect.addEventListener("change", () => toggleField(deptSelect, otherDeptInput));
+            issueSelect.addEventListener("change", () => toggleField(issueSelect, otherIssueInput));
+
+            // Initial toggle check
+            toggleField(deptSelect, otherDeptInput);
+            toggleField(issueSelect, otherIssueInput);
+        });
+    </script>
+</body>
+
+</html>

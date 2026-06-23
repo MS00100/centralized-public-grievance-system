@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Complaints | CampusFixx</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .history-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.2s;
+        }
+
+        .history-card:hover {
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .history-info h4 {
+            color: var(--text-main);
+            margin-bottom: 5px;
+        }
+
+        .history-info small {
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                    </svg>
+                    <span>CampusFixx</span>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="student_dashboard.html">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                    </svg>
+                    Lodge Complaint
+                </a>
+                <a href="status.html">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01">
+                        </path>
+                    </svg>
+                    Track Status
+                </a>
+
+                <div style="margin-top: auto; border-top: 1px solid var(--glass-border); padding-top: 10px;">
+                    <a href="my_complaints.html" class="active">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
+                            </path>
+                        </svg>
+                        My Complaints
+                    </a>
+                    <a href="#" id="studentLogout" style="color: #EF4444;">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
+                            </path>
+                        </svg>
+                        Logout
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar">
+                <h2>My Complaints History</h2>
+                <div class="user-profile">
+                    <span id="headerUserName">Student</span>
+                    <div class="avatar" id="headerUserAvatar">S</div>
+                </div>
+            </header>
+
+            <div class="content-wrapper">
+                <div id="historyList">
+                    <p style="text-align: center; color: var(--text-muted);">Loading your history...</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+    <script>
+        // Firebase Config
+        const firebaseConfig = {
+            apiKey: "AIzaSyDKSTsCsCnbUZUzq6T18RJ1j0K63jwFRkU",
+            authDomain: "campus-fix-425f7.firebaseapp.com",
+            projectId: "campus-fix-425f7",
+            storageBucket: "campus-fix-425f7.firebasestorage.app",
+            messagingSenderId: "136230732752",
+            appId: "1:136230732752:web:9644f9b7a8df3980f46fd5",
+            measurementId: "G-ZD50M396Y6"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Auth Check
+            const studentName = localStorage.getItem("campusFixx_studentName");
+            const studentReg = localStorage.getItem("campusFixx_studentReg");
+
+            if (!studentName || !studentReg) {
+                window.location.href = "index.html";
+                return;
+            }
+
+            // Header Update
+            document.getElementById("headerUserName").innerText = studentName;
+            document.getElementById("headerUserAvatar").innerText = studentName.charAt(0).toUpperCase();
+
+            // Logout
+            document.getElementById("studentLogout").addEventListener("click", () => {
+                localStorage.removeItem("campusFixx_studentName");
+                localStorage.removeItem("campusFixx_studentReg");
+                window.location.href = "index.html";
+            });
+
+            // Fetch History
+            const historyList = document.getElementById("historyList");
+            try {
+                // Simplify query to avoid Index issues (Composite index required for where+orderBy)
+                const snapshot = await db.collection("complaints")
+                    .where("registerNo", "==", studentReg)
+                    .get();
+
+                if (snapshot.empty) {
+                    historyList.innerHTML = '<p style="text-align: center; color: var(--text-muted);">No complaints found.</p>';
+                    return;
+                }
+
+                // Convert to array and sort client-side
+                let docs = [];
+                snapshot.forEach(doc => docs.push({ id: doc.id, ...doc.data() }));
+
+                // Sort descending by date (newest first)
+                docs.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+                historyList.innerHTML = "";
+                docs.forEach(data => {
+                    let status = (data.status || 'Pending');
+                    if (status.toLowerCase() === 'rejected') status = 'Denied';
+                    const statusClass = `status-${status.toLowerCase().replace(/\s+/g, '-')}`;
+
+                    let verificationButtons = '';
+                    if (status === 'Resolved') {
+                        verificationButtons = `
+                            <div class="verification-actions">
+                                <button class="confirm-btn" onclick="handleVerification('${data.id}', 'Verified')">Problem Fixed</button>
+                                <button class="not-fixed-btn" onclick="handleVerification('${data.id}', 'Re-opened')">Not Fixed</button>
+                            </div>
+                        `;
+                    }
+
+                    const card = document.createElement("div");
+                    card.className = "history-card";
+
+                    let feedbackHtml = '';
+                    if (data.adminFeedback) {
+                        feedbackHtml = `
+                            <div style="margin-top: 12px; padding: 10px; background: rgba(239, 68, 68, 0.1); border-left: 3px solid var(--error); border-radius: 4px;">
+                                <p style="font-size: 0.85rem; margin: 0; color: #fff;"><strong>Admin Feedback:</strong> ${data.adminFeedback}</p>
+                            </div>
+                        `;
+                    }
+
+                    card.innerHTML = `
+                    <div class="history-info">
+                        <h4 style="font-size: 1.1rem; font-weight: 700; color: #FFFFFF;">${data.issueType} <span style="color: var(--text-vibrant); font-size: 0.8em; margin-left: 8px;">#${data.complaintId}</span></h4>
+                        <small style="color: #94A3B8;">${new Date(data.createdAt).toLocaleDateString()} | ${data.department} | ${data.block}, Floor: ${data.floor}</small>
+                        <div style="background: rgba(0,0,0,0.3); padding: 8px 12px; border-radius: 8px; margin-top: 10px; border: 1px solid rgba(255,255,255,0.1);">
+                            <p style="font-size: 0.9rem; color: #fff; margin: 0;">📍 <strong>${data.roomNumber || 'N/A'}</strong> ${data.restroomType && data.restroomType !== 'N/A' ? `(${data.restroomType})` : ''} | <span style="color: var(--text-muted);">Landmark:</span> ${data.landmark || 'N/A'}</p>
+                        </div>
+                        <p style="margin-top: 10px; color: #E2E8F0; font-size: 0.95rem;">${data.description}</p>
+                        ${feedbackHtml}
+                        ${verificationButtons}
+                    </div>
+                    <div style="align-self: flex-start;">
+                        <span class="status-badge ${statusClass}">${status}</span>
+                    </div>
+                `;
+                    historyList.appendChild(card);
+                });
+
+            } catch (error) {
+                console.error("Error fetching history:", error);
+                historyList.innerHTML = '<p style="text-align: center; color: var(--error);">Error loading history.</p>';
+            }
+        });
+
+        async function handleVerification(docId, newStatus) {
+            try {
+                if (!confirm(`Are you sure you want to mark this as ${newStatus}?`)) return;
+
+                await db.collection("complaints").doc(docId).update({
+                    status: newStatus,
+                    verifiedAt: Date.now()
+                });
+                alert(`Status updated to ${newStatus}`);
+                location.reload();
+            } catch (error) {
+                console.error("Error verifying fix:", error);
+                alert("Failed to update status.");
+            }
+        }
+    </script>
+
+</body>
+
+</html>

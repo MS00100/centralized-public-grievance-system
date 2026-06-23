@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | CampusFixx</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .container {
+            max-width: 1000px;
+            width: 95%;
+            /* Use percentage for mobile */
+            margin: 20px auto;
+        }
+
+        .actions button {
+            width: auto;
+            margin-top: 0;
+            padding: 8px 12px;
+            font-size: 0.8rem;
+            margin-left: 5px;
+        }
+
+        .filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            /* Wrap filters on small screens */
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div style="position: absolute; top: 20px; right: 20px; display: flex; gap: 15px; align-items: center;">
+            <button id="logoutBtn"
+                style="width: auto; margin-top: 0; background: var(--error); padding: 8px 15px; font-size: 0.8rem;">Logout</button>
+        </div>
+
+        <h1 style="display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 40px;">
+            <span id="dashboardTitle">Admin Dashboard</span>
+            <span
+                style="font-size: 0.7rem; background: linear-gradient(90deg, #6366f1, #a855f7); color: white; padding: 4px 12px; border-radius: 20px; letter-spacing: 1px; font-weight: 800; box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);">AI
+                POWERED</span>
+        </h1>
+        <p class="subtitle" id="dashboardSubtitle">AI-powered categorization and issue management</p>
+        <p id="adminRoleDisplay"
+            style="text-align: center; color: var(--primary); font-weight: 700; margin-top: -10px; font-size: 1.1rem; display: none;">
+        </p>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card total">
+                <div class="stat-icon">📊</div>
+                <div class="stat-info">
+                    <h3>Total</h3>
+                    <span id="statTotal">0</span>
+                </div>
+            </div>
+            <div class="stat-card pending">
+                <div class="stat-icon">⏳</div>
+                <div class="stat-info">
+                    <h3>Pending & Re-opened</h3>
+                    <span id="statPending">0</span>
+                </div>
+            </div>
+            <div class="stat-card resolved">
+                <div class="stat-icon">✅</div>
+                <div class="stat-info">
+                    <h3>Resolved</h3>
+                    <span id="statResolved">0</span>
+                </div>
+            </div>
+            <div class="stat-card denied" style="border-left: 4px solid var(--error);">
+                <div class="stat-icon">❌</div>
+                <div class="stat-info">
+                    <h3>Denied</h3>
+                    <span id="statRejected">0</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="filters">
+            <select id="filterStatus">
+                <option value="all">All Status</option>
+                <option value="pending">Pending</option>
+                <option value="resolved">Resolved</option>
+                <option value="denied">Denied</option>
+            </select>
+            <select id="filterPriority">
+                <option value="all">All Priority</option>
+                <option value="high">High</option>
+                <option value="medium">Medium</option>
+                <option value="low">Low</option>
+            </select>
+        </div>
+
+        <div class="category-tabs" id="categoryTabs">
+            <button class="tab-btn active" data-category="all">All Issues</button>
+            <button class="tab-btn" data-category="Electrical">Electrical</button>
+            <button class="tab-btn" data-category="Plumbing">Plumbing</button>
+            <button class="tab-btn" data-category="Cleanliness">Cleanliness</button>
+            <button class="tab-btn" data-category="Internet">Internet</button>
+            <button class="tab-btn" data-category="Furniture">Furniture</button>
+            <button class="tab-btn" data-category="Other Issues">Others</button>
+        </div>
+
+        <div class="top-actions" style="display: flex; justify-content: flex-end; gap: 10px; margin-bottom: 20px;">
+            <button id="exportBtn"
+                style="width: auto; margin-top: 0; background: var(--success); padding: 8px 20px;">Export
+                Report</button>
+        </div>
+
+        <div class="search-bar" style="margin-bottom: 20px;">
+            <input type="text" id="searchInput" placeholder="🔍 Search by Complaint ID or Student Name..."
+                style="width: 100%; padding: 14px 20px; border-radius: 12px; border: 1px solid var(--glass-border); background: var(--input-bg); color: var(--text-main); font-size: 1rem; transition: all 0.3s ease;">
+        </div>
+
+        <script>
+            // Auth Guard (Simple Prototype Mode)
+            if (!localStorage.getItem("campusFixx_admin_auth")) {
+                window.location.href = "login.html";
+            }
+
+            document.getElementById("logoutBtn").addEventListener("click", () => {
+                localStorage.removeItem("campusFixx_admin_auth");
+                localStorage.removeItem("campusFixx_admin_role");
+                window.location.href = "login.html";
+            });
+        </script>
+
+        <div id="complaintsList">
+            <p style="text-align: center;">Loading complaints...</p>
+        </div>
+
+        <div class="nav-links">
+            <a href="index.html">Back to Home</a>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="admin.js"></script>
+</body>
+
+</html>

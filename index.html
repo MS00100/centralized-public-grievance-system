@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Login | CampusFixx</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="centered-layout">
+
+  <div class="container" style="max-width: 400px; text-align: center;">
+    <div style="margin-bottom: 20px;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none"
+        stroke="#667eea" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+      </svg>
+    </div>
+
+    <h1>Student Login</h1>
+    <p class="subtitle">Enter your details to continue</p>
+
+    <form id="studentLoginForm">
+      <div style="text-align: left;">
+        <label for="sName">Full Name</label>
+        <input type="text" id="sName" placeholder="Enter your name" required>
+      </div>
+
+      <div style="text-align: left;">
+        <label for="sReg">Register Number</label>
+        <input type="text" id="sReg" placeholder="Enter registration number" required>
+      </div>
+
+      <div style="text-align: left;">
+        <label for="sDept">Department</label>
+        <select id="sDept" required>
+          <option value="" disabled selected>Select Department</option>
+          <option>CSE</option>
+          <option>IT</option>
+          <option>ECE</option>
+          <option>EEE</option>
+          <option>MECH</option>
+          <option>CIVIL</option>
+          <option>AGRI</option>
+          <option>FT</option>
+          <option>CHEM</option>
+          <option>PHARMA</option>
+          <option>AIML</option>
+          <option>AERO</option>
+          <option>BIOTECH</option>
+          <option>CYBER</option>
+          <option>BME</option>
+          <option>IOT</option>
+          <option>MECHATRONICS</option>
+          <option>ROBOTICS</option>
+          <option>AIDS</option>
+          <option>S&F</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <button type="submit">Login</button>
+
+      <p id="loginError"
+        style="color:#ef4444; margin-top:10px; display:none; font-size:0.9rem;">
+      </p>
+    </form>
+
+    <div class="nav-links" style="margin-top: 30px;">
+      <a href="staff_login.html">Staff Login</a> |
+      <a href="login.html">Admin Login</a> |
+      <a href="dept_login.html">In-charge Login</a>
+    </div>
+  </div>
+
+  <script>
+    // Auto redirect if already logged in
+    if (localStorage.getItem("campusFixx_studentName")) {
+      window.location.href = "student_dashboard.html";
+    }
+
+    document.getElementById("studentLoginForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById("sName").value.trim();
+      const reg = document.getElementById("sReg").value.trim();
+      const dept = document.getElementById("sDept").value;
+
+      const errorDiv = document.getElementById("loginError");
+
+      if (!name || !reg || !dept) {
+        errorDiv.innerText = "Please fill all fields!";
+        errorDiv.style.display = "block";
+        return;
+      }
+
+      localStorage.setItem("campusFixx_studentName", name);
+      localStorage.setItem("campusFixx_studentReg", reg);
+      localStorage.setItem("campusFixx_studentDept", dept);
+
+      window.location.href = "student_dashboard.html";
+    });
+  </script>
+
+</body>
+</html>
+

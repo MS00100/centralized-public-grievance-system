@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Your Complaint | CampusFixx</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .result-card {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 12px;
+            display: none;
+            text-align: left;
+        }
+
+        .result-card h3 {
+            margin-bottom: 10px;
+            color: #667eea;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: white;
+            font-weight: bold;
+        }
+
+        .status-pending {
+            background: #f1c40f;
+        }
+
+        .status-resolved {
+            background: #2ecc71;
+        }
+
+        .status-denied {
+            background: #e74c3c;
+        }
+    </style>
+</head>
+
+<body class="centered-layout">
+
+    <div class="container" style="max-width: 500px; text-align: center;">
+        <div style="margin-bottom: 20px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none"
+                stroke="#667eea" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+        </div>
+        <h1>Track Status</h1>
+        <p class="subtitle">Enter your Complaint ID to check progress</p>
+
+        <form id="statusForm" style="text-align: left;">
+            <label for="complaintId">Complaint ID</label>
+            <input type="text" id="complaintId" placeholder="e.g. CMP-20230615-123456" required>
+
+            <button type="submit">Check Status</button>
+        </form>
+
+        <div id="result" class="result-card" style="text-align: left; margin-top: 20px;">
+            <h3>Complaint Details</h3>
+            <p><strong>ID:</strong> <span id="resId"></span></p>
+            <p><strong>Issue:</strong> <span id="resIssue"></span></p>
+            <p><strong>Location:</strong> <span id="resLoc"></span></p>
+            <p><strong>Landmark:</strong> <span id="resLandmark"></span></p>
+            <p><strong>Status:</strong> <span id="resStatus" class="status-badge"></span></p>
+            <p style="margin-top: 10px;"><strong>Description:</strong> <br> <span id="resDesc"></span></p>
+            <div id="verificationActions" style="display: none;"></div>
+        </div>
+
+        <div class="nav-links" style="margin-top: 30px;">
+            <a href="index.html">Back to Login</a>
+        </div>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <script src="status.js"></script>
+
+</body>
+
+</html>

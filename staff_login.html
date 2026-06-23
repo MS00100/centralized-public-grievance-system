@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Login | CampusFixx</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="centered-layout">
+
+    <div class="container" style="max-width: 400px;">
+        <div style="margin-bottom: 20px; text-align: center;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none"
+                stroke="#667eea" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+        </div>
+        <h1>Staff Login</h1>
+        <p class="subtitle">Teachers & Staff Department</p>
+
+        <form id="staffLoginForm">
+            <label for="username">Mail ID</label>
+            <input type="text" id="username" placeholder="paavaistaff@gmail.com" required>
+
+            <label for="password">Password</label>
+            <div class="password-wrapper" style="position: relative;">
+                <input type="password" id="password" placeholder="••••••" required style="padding-right: 40px;">
+                <span id="togglePassword"
+                    style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #666;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                </span>
+            </div>
+
+            <button type="submit">Login</button>
+            <p id="errorMsg" style="color: red; text-align: center; margin-top: 10px; display: none;">Invalid
+                Credentials</p>
+        </form>
+
+        <div class="nav-links">
+            <a href="index.html">Back to Home</a> | <a href="dept_login.html">In-charge Login</a>
+        </div>
+    </div>
+
+    <script>
+        const loginForm = document.getElementById("staffLoginForm");
+        const errorMsg = document.getElementById("errorMsg");
+        const togglePassword = document.getElementById("togglePassword");
+        const passwordInput = document.getElementById("password");
+
+        togglePassword.addEventListener("click", () => {
+            const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+            passwordInput.setAttribute("type", type);
+            togglePassword.style.color = type === "text" ? "#333" : "#666";
+        });
+
+        loginForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const user = document.getElementById("username").value.trim();
+            const pass = document.getElementById("password").value;
+
+            // Credentials from User Request
+            if (user === "paavaistaff@gmail.com" && pass === "staff123") {
+                localStorage.setItem("campusFixx_admin_auth", "true");
+                localStorage.setItem("campusFixx_admin_role", "Staff");
+                localStorage.setItem("campusFixx_staff_mail", user);
+                window.location.href = "staff_dashboard.html";
+            } else {
+                errorMsg.style.display = "block";
+            }
+        });
+    </script>
+</body>
+
+</html>

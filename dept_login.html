@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>In-charge Login | CampusFixx</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="centered-layout">
+
+    <div class="container" style="max-width: 400px;">
+        <h1>In-charge Login</h1>
+        <p class="subtitle">Select Department & Enter Credentials</p>
+
+        <form id="deptLoginForm">
+            <label for="deptSelect">Department</label>
+            <select id="deptSelect" required
+                style="width: 100%; padding: 12px; margin-bottom: 20px; border-radius: 8px; border: 1px solid var(--glass-border); background: var(--input-bg); color: var(--text-main);">
+                <option value="" disabled selected>Select Department</option>
+                <option value="Electrical">Electrical</option>
+                <option value="Plumbing">Plumbing</option>
+                <option value="Cleanliness">Cleanliness</option>
+            </select>
+
+            <label for="username">Username</label>
+            <input type="text" id="username" placeholder="Username" required>
+
+            <label for="password">Password</label>
+            <div class="password-wrapper" style="position: relative;">
+                <input type="password" id="password" placeholder="••••••" required style="padding-right: 40px;">
+                <span id="togglePassword"
+                    style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #666;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                </span>
+            </div>
+
+            <button type="submit">Login</button>
+            <p id="errorMsg" style="color: red; text-align: center; margin-top: 10px; display: none;">Invalid
+                Credentials</p>
+        </form>
+
+        <div class="nav-links">
+            <a href="index.html">Back to Home</a> | <a href="login.html">Admin Login</a>
+        </div>
+    </div>
+
+    <script>
+        const loginForm = document.getElementById("deptLoginForm");
+        const errorMsg = document.getElementById("errorMsg");
+        const togglePassword = document.getElementById("togglePassword");
+        const passwordInput = document.getElementById("password");
+
+        togglePassword.addEventListener("click", () => {
+            const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+            passwordInput.setAttribute("type", type);
+            togglePassword.style.color = type === "text" ? "#333" : "#666";
+        });
+
+        loginForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const dept = document.getElementById("deptSelect").value;
+            const user = document.getElementById("username").value.toLowerCase();
+            const pass = document.getElementById("password").value;
+
+            // Credentials Mapping
+            const credentials = {
+                "Electrical": { u: "electrical123@gmail.com", p: "electrical123" },
+                "Plumbing": { u: "plumbing123@gmail.com", p: "plumbing123" },
+                "Cleanliness": { u: "cleanliness123@gmail.com", p: "cleanliness123" }
+            };
+
+            const expected = credentials[dept];
+
+            if (expected && user === expected.u && pass === expected.p) {
+                localStorage.setItem("campusFixx_admin_auth", "true");
+                localStorage.setItem("campusFixx_admin_role", dept);
+                window.location.href = "admin.html";
+            } else {
+                errorMsg.style.display = "block";
+            }
+        });
+    </script>
+</body>
+
+</html>
